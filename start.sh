@@ -1,2 +1,10 @@
+# Create an option for docker cli that contains all ports to listen on.
+ports=""
+for i in $(cat src/common-ports.txt)
+do
+    port="-p $i:$i"
+    ports="${ports} ${port}"
+done
+
 # Run the docker sharing ports most common HTTP ports and sharing guest's /app/log directory with host's ./log directory.
-docker run -p 66:66 -p 80:80 -p 81:81 -p 443:443 -p 445:445 -p 457:457 -p 1080:1080 -p 1100:1100 -p 1241:1241 -p 1352:1352 -p 1433:1433 -p 1434:1434 -p 1521:1521 -p 1944:1944 -p 2301:2301 -p 3000:3000 -p 3128:3128 -p 3306:3306 -p 4000:4000 -p 4001:4001 -p 4002:4002 -p 4100:4100 -p 5000:5000 -p 5432:5432 -p 5800:5800 -p 5801:5801 -p 5802:5802 -p 6346:6346 -p 6347:6347 -p 7001:7001 -p 7002:7002 -p 8080:8080 -p 8888:8888 -p 30821:30821 -v $(pwd)/log:/app/log -d -it -t pollen
+docker run $ports -v $(pwd)/log:/app/log -d -it -t pollen
